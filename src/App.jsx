@@ -1,8 +1,19 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
+
+function Home() {
+    return <h1>Home do UniBet</h1>;
+}
 
 function App() {
     return (
-        <Login />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/home" element={<Home />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
