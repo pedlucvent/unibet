@@ -385,3 +385,10 @@ form input {
 .btn-excluir:hover {
     background: #b91c1c;
 }
+.btn-excluir {
+    background: #dc2626;
+}
+
+.btn-excluir:hover {
+    background: #b91c1c;
+}

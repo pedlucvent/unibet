@@ -47,14 +47,24 @@ function EventosAdmin() {
 
     const excluirEvento = async (id) => {
         const confirmar = window.confirm(
-            "Deseja realmente excluir este evento?"
+            "Deseja realmente excluir este evento? As apostas relacionadas também serão removidas."
         );
 
-        if (!confirmar) return;
+        if (!confirmar) {
+            return;
+        }
+
+        const apostasResposta = await api.get(`/apostas?eventoId=${id}`);
+
+        for (const aposta of apostasResposta.data) {
+            await api.delete(`/apostas/${aposta.id}`);
+        }
 
         await api.delete(`/eventos/${id}`);
 
         carregarEventos();
+
+        alert("Evento excluído com sucesso!");
     };
 
     const encerrarEvento = async (id) => {
@@ -151,92 +161,98 @@ function EventosAdmin() {
                 </form>
             </div>
 
-            {eventos.map((evento) => (
-                <div className="admin-card" key={evento.id}>
-                    <div className="admin-card-header">
-                        <div>
-                            <h3>
-                                {evento.timeA} x {evento.timeB}
-                            </h3>
+            {eventos.length === 0 ? (
+                <div className="card">
+                    <p>Nenhum evento cadastrado.</p>
+                </div>
+            ) : (
+                eventos.map((evento) => (
+                    <div className="admin-card" key={evento.id}>
+                        <div className="admin-card-header">
+                            <div>
+                                <h3>
+                                    {evento.timeA} x {evento.timeB}
+                                </h3>
 
-                            <p>
-                                <strong>Esporte:</strong>{" "}
-                                {evento.esporte}
-                            </p>
+                                <p>
+                                    <strong>Esporte:</strong>{" "}
+                                    {evento.esporte}
+                                </p>
 
-                            <p>
-                                <strong>🏆 Vencedor:</strong>{" "}
-                                {evento.resultado || "Não definido"}
-                            </p>
+                                <p>
+                                    <strong>🏆 Vencedor:</strong>{" "}
+                                    {evento.resultado || "Não definido"}
+                                </p>
 
-                            <p>
-                                <strong>Data:</strong>{" "}
-                                {evento.data}
-                            </p>
+                                <p>
+                                    <strong>Data:</strong>{" "}
+                                    {evento.data}
+                                </p>
+                            </div>
+
+                            <div className="admin-status-box">
+                                <span>Status atual</span>
+
+                                <strong
+                                    style={{
+                                        color: corStatus(evento.status)
+                                    }}
+                                >
+                                    {evento.status.toUpperCase()}
+                                </strong>
+                            </div>
                         </div>
 
-                        <div className="admin-status-box">
-                            <span>Status atual</span>
+                        <div className="admin-actions">
+                            {evento.status === "aberto" && (
+                                <button
+                                    className="btn-alerta"
+                                    onClick={() =>
+                                        encerrarEvento(evento.id)
+                                    }
+                                >
+                                    Encerrar Apostas
+                                </button>
+                            )}
 
-                            <strong
-                                style={{
-                                    color: corStatus(evento.status)
-                                }}
-                            >
-                                {evento.status.toUpperCase()}
-                            </strong>
-                        </div>
-                    </div>
+                            {evento.status !== "finalizado" && (
+                                <>
+                                    <button
+                                        onClick={() =>
+                                            definirResultado(
+                                                evento,
+                                                evento.timeA
+                                            )
+                                        }
+                                    >
+                                        Vitória {evento.timeA}
+                                    </button>
 
-                    <div className="admin-actions">
-                        {evento.status === "aberto" && (
+                                    <button
+                                        onClick={() =>
+                                            definirResultado(
+                                                evento,
+                                                evento.timeB
+                                            )
+                                        }
+                                    >
+                                        Vitória {evento.timeB}
+                                    </button>
+                                </>
+                            )}
+
                             <button
-                                className="btn-alerta"
+                                className="btn-excluir"
                                 onClick={() =>
-                                    encerrarEvento(evento.id)
+                                    excluirEvento(evento.id)
                                 }
                             >
-                                Encerrar Apostas
+                                Excluir Evento
                             </button>
-                        )}
-
-                        {evento.status !== "finalizado" && (
-                            <>
-                                <button
-                                    onClick={() =>
-                                        definirResultado(
-                                            evento,
-                                            evento.timeA
-                                        )
-                                    }
-                                >
-                                    Vitória {evento.timeA}
-                                </button>
-
-                                <button
-                                    onClick={() =>
-                                        definirResultado(
-                                            evento,
-                                            evento.timeB
-                                        )
-                                    }
-                                >
-                                    Vitória {evento.timeB}
-                                </button>
-                            </>
-                        )}
-
-                        <button
-                            className="btn-excluir"
-                            onClick={() =>
-                                excluirEvento(evento.id)
-                            }
-                        >
-                            Excluir Evento
-                        </button>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))
+            )}
         </div>
     );
 }
