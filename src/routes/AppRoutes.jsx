@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "../pages/Login";
 import UsuarioDashboard from "../pages/UsuarioDashboard";
-import AdminDashboard from "../pages/AdminDashboard";
+import EventosAdmin from "../pages/EventosAdmin";
 import Eventos from "../pages/Eventos";
 import Apostar from "../pages/Apostar";
 import Historico from "../pages/Historico";
@@ -68,7 +68,7 @@ export default function AppRoutes() {
         path="/admin"
         element={
           <ProtectedRoute>
-            <AdminDashboard />
+            <EventosAdmin />
           </ProtectedRoute>
         }
       />

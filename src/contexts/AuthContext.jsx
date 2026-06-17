@@ -1,23 +1,43 @@
 import { createContext, useContext, useState } from "react";
+import { api } from "../services/api";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+    const [usuario, setUsuario] = useState(null);
 
-  const login = (userData) => {
-    setUser(userData);
-  };
+    const login = async (email, senha) => {
+        const resposta = await api.get("/usuarios");
 
-  const logout = () => {
-    setUser(null);
-  };
+        const usuarioEncontrado = resposta.data.find(
+            (u) => u.email === email && u.senha === senha
+        );
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+        if (!usuarioEncontrado) {
+            return false;
+        }
+
+        setUsuario(usuarioEncontrado);
+        return usuarioEncontrado;
+    };
+
+    const logout = () => {
+        setUsuario(null);
+    };
+
+    return (
+        <AuthContext.Provider
+            value={{
+                usuario,
+                login,
+                logout
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+    return useContext(AuthContext);
+}

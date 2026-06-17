@@ -1,16 +1,29 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const handleLogin = (e) => {
+    const navigate = useNavigate();
+    const { login } = useAuth();
+
+    const handleLogin = async (e) => {
         e.preventDefault();
 
-        console.log("Email:", email);
-        console.log("Senha:", senha);
+        const usuario = await login(email, senha);
 
-        alert("Tela de login criada!");
+        if (!usuario) {
+            alert("Email ou senha inválidos.");
+            return;
+        }
+
+        if (usuario.perfil === "admin") {
+            navigate("/admin");
+        } else {
+            navigate("/");
+        }
     };
 
     return (
@@ -21,6 +34,7 @@ function Login() {
                 <div>
                     <label>Email:</label>
                     <br />
+
                     <input
                         type="email"
                         value={email}
@@ -34,6 +48,7 @@ function Login() {
                 <div>
                     <label>Senha:</label>
                     <br />
+
                     <input
                         type="password"
                         value={senha}

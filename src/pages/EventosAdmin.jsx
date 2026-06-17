@@ -5,7 +5,12 @@ function EventosAdmin() {
     const [eventos, setEventos] = useState([]);
 
     useEffect(() => {
-        carregarEventos();
+        const buscarEventos = async () => {
+            const resposta = await api.get("/eventos");
+            setEventos(resposta.data);
+        };
+
+        buscarEventos();
     }, []);
 
     const carregarEventos = async () => {
@@ -14,7 +19,7 @@ function EventosAdmin() {
     };
 
     const encerrarEvento = async (id) => {
-        await api.patch(/eventos/${id}, {
+        await api.patch(`/eventos/${id}`, {
             status: "encerrado"
         });
 
@@ -22,43 +27,43 @@ function EventosAdmin() {
     };
 
     const definirResultado = async (evento, resultado) => {
-        await api.patch(/eventos/${evento.id}, {
-            resultado,
-            status: "finalizado"
-        });
+        await api.patch(`/eventos/${evento.id}`, {
+    resultado,
+    status: "finalizado"
+});
 
         const apostas = await api.get(
-            /apostas?eventoId=${evento.id}&status=pendente
-        );
+    `/apostas?eventoId=${evento.id}&status=pendente`
+);
 
         for (const aposta of apostas.data) {
-            if (aposta.palpite === resultado) {
-                const retorno = aposta.valor * 2;
+    if (aposta.palpite === resultado) {
+        const retorno = aposta.valor * 2;
 
-                await api.patch(/apostas/${aposta.id}, {
-                    status: "ganhou",
-                    retorno
-                });
+        await api.patch(`/apostas/${aposta.id}`, {
+            status: "ganhou",
+            retorno
+        });
 
-                const usuario = await api.get(
-                    /usuarios/${aposta.usuarioId}
-                );
+        const usuario = await api.get(
+            `/usuarios/${aposta.usuarioId}`
+        );
 
-                await api.patch(/usuarios/${aposta.usuarioId}, {
-                    saldo: usuario.data.saldo + retorno
-                });
-            } else {
-                await api.patch(/apostas/${aposta.id}, {
-                    status: "perdeu",
-                    retorno: 0
-                });
-            }
-        }
+        await api.patch(`/usuarios/${aposta.usuarioId}`, {
+            saldo: usuario.data.saldo + retorno
+        });
+    } else {
+        await api.patch(`/apostas/${aposta.id}`, {
+            status: "perdeu",
+            retorno: 0
+        });
+    }
+}   // fecha o for
 
-        carregarEventos();
+carregarEventos();
 
-        alert("Resultado registrado!");
-    };
+alert("Resultado registrado!");
+};
 
     return (
         <div>
