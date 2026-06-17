@@ -7,198 +7,83 @@
 
 ---
 
-# Descrição do Projeto
+## Descrição
 
-O UniBet é um sistema web de apostas esportivas fictícias desenvolvido para fins acadêmicos utilizando React, Context API, React Router DOM e JSON Server.
+O UniBet é um sistema de apostas esportivas fictícias desenvolvido com React para fins acadêmicos.
 
-O sistema permite que usuários realizem apostas em eventos esportivos cadastrados pelo administrador, acompanhem seu saldo, visualizem histórico de apostas e consultem o ranking de jogadores.
+O sistema possui dois tipos de usuários:
 
-O administrador possui acesso a funcionalidades exclusivas para gerenciamento dos eventos esportivos.
+### Administrador
+
+* Cadastrar eventos esportivos
+* Excluir eventos
+* Encerrar apostas
+* Definir resultados dos jogos
+
+### Usuário
+
+* Realizar cadastro
+* Fazer login
+* Visualizar eventos
+* Realizar apostas
+* Consultar histórico
+* Consultar ranking
+* Acompanhar saldo
 
 ---
 
-# Objetivos do Projeto
-
-* Aplicar conceitos de React.
-* Utilizar React Router DOM para navegação.
-* Utilizar Context API para gerenciamento de autenticação.
-* Consumir dados de uma API simulada através do JSON Server.
-* Trabalhar com Hooks do React.
-* Organizar o projeto utilizando componentes reutilizáveis.
-* Simular regras de negócio de um sistema de apostas esportivas.
-
----
-
-# Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 * React
 * React Router DOM
 * Context API
 * Axios
 * JSON Server
-* JavaScript
 * CSS
-* GitHub
 
 ---
 
-# Funcionalidades do Sistema
+## Funcionalidade Extra
 
-## Usuário
+### Ranking de Jogadores
 
-* Login no sistema
-* Cadastro de novos usuários
-* Visualização de eventos esportivos
-* Realização de apostas
-* Escolha do time vencedor da aposta
-* Consulta de saldo
-* Consulta de histórico de apostas
-* Consulta de ranking de jogadores
-
-## Administrador
-
-* Login administrativo
-* Cadastro de eventos esportivos
-* Exclusão de eventos
-* Encerramento das apostas
-* Definição dos resultados dos eventos
-* Atualização automática das apostas
-* Atualização automática do saldo dos usuários
+O sistema possui um ranking que classifica os usuários pelo saldo disponível, atualizado automaticamente após os resultados das apostas.
 
 ---
 
-# Funcionalidade Extra
+## Hooks Utilizados
 
-## Ranking de Jogadores
+### useState
 
-O sistema possui um ranking que classifica os usuários de acordo com o saldo disponível.
+Utilizado para armazenar estados dos componentes.
 
-A classificação é atualizada automaticamente conforme os resultados das apostas.
+### useEffect
 
----
+Utilizado para carregar dados da API.
 
-# Regras de Negócio
+### useContext
 
-### Cadastro de Usuários
-
-* Novos usuários podem ser cadastrados.
-* Todo usuário inicia com saldo fictício de R$ 1000,00.
-
-### Realização de Apostas
-
-* O usuário escolhe um evento.
-* O usuário escolhe um dos times participantes.
-* O usuário informa o valor da aposta.
-* O valor apostado é descontado do saldo.
-
-### Resultado dos Eventos
-
-* O administrador define o vencedor do evento.
-* O sistema verifica automaticamente todas as apostas pendentes.
-
-### Usuário Vencedor
-
-* Recebe o dobro do valor apostado.
-
-Exemplo:
-
-Aposta de R$ 100
-
-Retorno:
-
-R$ 200
-
-### Usuário Perdedor
-
-* Não recebe retorno.
-
-### Ranking
-
-* O ranking é ordenado pelo saldo dos usuários.
-* Quanto maior o saldo, melhor a posição no ranking.
+Utilizado através do AuthContext para compartilhar os dados do usuário autenticado.
 
 ---
 
-# Hooks Utilizados
-
-## useState
-
-Utilizado para armazenar estados locais dos componentes.
-
-Exemplos:
-
-* Formulários
-* Eventos
-* Usuários
-* Apostas
-
-## useEffect
-
-Utilizado para carregar informações da API quando os componentes são renderizados.
-
-Exemplos:
-
-* Carregar usuários
-* Carregar eventos
-* Carregar histórico
-* Carregar ranking
-
-## useContext
-
-Utilizado através do AuthContext para compartilhar as informações do usuário autenticado.
-
----
-
-# Context API
-
-Foi criado um AuthContext responsável por:
-
-* Armazenar o usuário logado.
-* Disponibilizar login.
-* Disponibilizar logout.
-* Controlar o acesso às rotas protegidas.
-
----
-
-# Estrutura do Projeto
+## Estrutura do Projeto
 
 ```text
 src/
-│
 ├── components/
-│   ├── Navbar.jsx
-│   └── ProtectedRoute.jsx
-│
 ├── contexts/
-│   └── AuthContext.jsx
-│
 ├── pages/
-│   ├── Login.jsx
-│   ├── Register.jsx
-│   ├── UsuarioDashboard.jsx
-│   ├── EventosAdmin.jsx
-│   ├── Eventos.jsx
-│   ├── Apostar.jsx
-│   ├── Historico.jsx
-│   ├── Ranking.jsx
-│   └── NotFound.jsx
-│
 ├── routes/
-│   └── AppRoutes.jsx
-│
 ├── services/
-│   └── api.js
-│
 ├── styles/
-│   └── global.css
-│
 ├── App.jsx
 └── main.jsx
 ```
 
 ---
 
-# Principais Rotas
+## Principais Rotas
 
 ```text
 /login
@@ -213,39 +98,21 @@ src/
 
 ---
 
-# Consumo da API
+## Como Executar
 
-O sistema utiliza Axios para consumir os dados do JSON Server.
-
-Exemplos:
-
-```javascript
-api.get("/usuarios");
-api.get("/eventos");
-api.post("/apostas");
-api.patch("/usuarios/2");
-api.delete("/eventos/1");
-```
-
----
-
-# Como Executar o Projeto
-
-## Instalar Dependências
+### Instalar Dependências
 
 ```bash
 npm install
 ```
 
-## Executar o React
+### Executar React
 
 ```bash
 npm run dev
 ```
 
----
-
-# Executar JSON Server
+### Executar JSON Server
 
 ```bash
 npx json-server db.json --watch --port 3000
@@ -253,43 +120,27 @@ npx json-server db.json --watch --port 3000
 
 ---
 
-# Usuários de Teste
+## Usuários de Teste
 
-## Administrador
-
-Email:
+### Administrador
 
 ```text
-admin@bet.com
+Email: admin@bet.com
+Senha: 123
 ```
 
-Senha:
+### Usuário
 
 ```text
-123
+Email: user@bet.com
+Senha: 123
 ```
-
-## Usuário
-
-Email:
-
-```text
-user@bet.com
-```
-
-Senha:
-
-```text
-123
-```
-
-Também é possível cadastrar novos usuários diretamente pelo sistema.
 
 ---
 
-# Divisão de Tarefas
+## Divisão de Tarefas
 
-## Pedro Lucas Ventura
+### Pedro Lucas Ventura
 
 * Configuração inicial do projeto
 * AuthContext
@@ -298,44 +149,18 @@ Também é possível cadastrar novos usuários diretamente pelo sistema.
 * Sistema de apostas
 * Cadastro de usuários
 * Melhorias visuais
-* Integração entre apostas, saldo e ranking
 
-## Matheus Steiner Milleto
+### Matheus Steiner Milleto
 
 * Tela de Login
 * Histórico de apostas
-* Ranking de jogadores
-* Integração com JSON Server
+* Ranking
 * Painel administrativo
 * Cadastro e exclusão de eventos
 * Testes e validações
 
 ---
 
-# Dificuldades Encontradas
+## Considerações Finais
 
-* Controle de autenticação.
-* Atualização automática dos saldos.
-* Integração entre eventos e apostas.
-* Atualização do ranking.
-* Consumo de dados utilizando JSON Server.
-* Controle de rotas protegidas.
-
----
-
-# Melhorias Futuras
-
-* Cadastro de esportes diferentes.
-* Upload de imagens para eventos.
-* Odds dinâmicas.
-* Estatísticas dos usuários.
-* Histórico financeiro detalhado.
-* Melhor responsividade para dispositivos móveis.
-
----
-
-# Conclusão
-
-O projeto permitiu aplicar conceitos importantes de desenvolvimento front-end utilizando React, Hooks, Context API, React Router DOM e consumo de APIs.
-
-Através do UniBet foi possível simular um sistema completo de apostas esportivas, incluindo autenticação, gerenciamento de eventos, controle de saldo, histórico de apostas e ranking de usuários.
+O projeto permitiu aplicar conceitos de React, Hooks, Context API, React Router DOM e consumo de APIs através do JSON Server, simulando o funcionamento de uma plataforma de apostas esportivas.
