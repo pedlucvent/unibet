@@ -16,7 +16,7 @@ function Ranking() {
             <h1>Ranking de Jogadores</h1>
 
             {usuarios.map((u, index) => (
-                <div key={u.id}>
+                <div className="card" key={u.id}>
                     #{index + 1} - {u.nome} - Saldo: R$ {u.saldo}
                 </div>
             ))}

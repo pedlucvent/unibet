@@ -11,11 +11,11 @@ function Eventos() {
     }, []);
 
     return (
-        <div>
+    <div className="page-container">
             <h1>Eventos Disponíveis</h1>
 
             {eventos.map((evento) => (
-                <div key={evento.id} style={{ border: "1px solid #ccc", margin: 10, padding: 10 }}>
+                <div className="card" key={evento.id} style={{ border: "1px solid #ccc", margin: 10, padding: 10 }}>
                     <h3>{evento.timeA} vs {evento.timeB}</h3>
                     <p>Esporte: {evento.esporte}</p>
                     <p>Status: {evento.status}</p>

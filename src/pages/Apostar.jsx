@@ -79,7 +79,7 @@ function Apostar() {
     };
 
     return (
-        <div>
+    <div className="page-container centralizado">
             <h1>Apostar</h1>
 
             <select

@@ -27,7 +27,7 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className="page-container centralizado">
             <h1>UniBet</h1>
 
             <form onSubmit={handleLogin}>
