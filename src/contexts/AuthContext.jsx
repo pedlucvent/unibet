@@ -4,7 +4,10 @@ import { api } from "../services/api";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [usuario, setUsuario] = useState(null);
+    const [usuario, setUsuario] = useState(() => {
+        const usuarioSalvo = localStorage.getItem("usuario");
+        return usuarioSalvo ? JSON.parse(usuarioSalvo) : null;
+    });
 
     const login = async (email, senha) => {
         const resposta = await api.get("/usuarios");
@@ -18,21 +21,18 @@ export function AuthProvider({ children }) {
         }
 
         setUsuario(usuarioEncontrado);
+        localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado));
+
         return usuarioEncontrado;
     };
 
     const logout = () => {
         setUsuario(null);
+        localStorage.removeItem("usuario");
     };
 
     return (
-        <AuthContext.Provider
-            value={{
-                usuario,
-                login,
-                logout
-            }}
-        >
+        <AuthContext.Provider value={{ usuario, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

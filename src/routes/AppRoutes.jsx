@@ -12,69 +12,65 @@ import NotFound from "../pages/NotFound";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 export default function AppRoutes() {
-  return (
-    <Routes>
-      {/* pública */}
-      <Route path="/login" element={<Login />} />
+    return (
+        <Routes>
+            <Route path="/login" element={<Login />} />
 
-      {/* protegidas usuário */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <UsuarioDashboard />
-          </ProtectedRoute>
-        }
-      />
+            <Route
+                path="/"
+                element={
+                    <ProtectedRoute>
+                        <UsuarioDashboard />
+                    </ProtectedRoute>
+                }
+            />
 
-      <Route
-        path="/eventos"
-        element={
-          <ProtectedRoute>
-            <Eventos />
-          </ProtectedRoute>
-        }
-      />
+            <Route
+                path="/eventos"
+                element={
+                    <ProtectedRoute>
+                        <Eventos />
+                    </ProtectedRoute>
+                }
+            />
 
-      <Route
-        path="/apostar"
-        element={
-          <ProtectedRoute>
-            <Apostar />
-          </ProtectedRoute>
-        }
-      />
+            <Route
+                path="/apostar"
+                element={
+                    <ProtectedRoute>
+                        <Apostar />
+                    </ProtectedRoute>
+                }
+            />
 
-      <Route
-        path="/historico"
-        element={
-          <ProtectedRoute>
-            <Historico />
-          </ProtectedRoute>
-        }
-      />
+            <Route
+                path="/historico"
+                element={
+                    <ProtectedRoute>
+                        <Historico />
+                    </ProtectedRoute>
+                }
+            />
 
-      <Route
-        path="/ranking"
-        element={
-          <ProtectedRoute>
-            <Ranking />
-          </ProtectedRoute>
-        }
-      />
+            <Route
+                path="/ranking"
+                element={
+                    <ProtectedRoute>
+                        <Ranking />
+                    </ProtectedRoute>
+                }
+            />
 
-      {/* admin */}
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <EventosAdmin />
-          </ProtectedRoute>
-        }
-      />
+            <Route
+                path="/admin"
+                element={
+                    <ProtectedRoute adminOnly={true}>
+                        <EventosAdmin />
+                    </ProtectedRoute>
+                }
+            />
 
-      {/* fallback */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
+            <Route path="*" element={<NotFound />} />
+        </Routes>
+    );
 }
