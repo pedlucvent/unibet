@@ -8,7 +8,6 @@ function Apostar() {
 
     useEffect(() => {
         api.get("/eventos").then((res) => {
-            // Exibe apenas eventos abertos
             const eventosAbertos = res.data.filter(
                 (evento) => evento.status === "aberto"
             );
@@ -18,7 +17,7 @@ function Apostar() {
     }, []);
 
     const fazerAposta = async () => {
-        const usuarioId = 2; // usuário de teste
+        const usuarioId = 2;
 
         if (!eventoId) {
             alert("Selecione um evento.");
@@ -31,29 +30,19 @@ function Apostar() {
         }
 
         try {
-            // Busca o usuário
-            const usuarioResposta = await api.get(
-                `/usuarios/${usuarioId}`
-            );
-
+            const usuarioResposta = await api.get(`/usuarios/${usuarioId}`);
             const usuario = usuarioResposta.data;
 
-            // Verifica saldo
             if (usuario.saldo < Number(valor)) {
                 alert("Saldo insuficiente!");
                 return;
             }
 
-            // Atualiza saldo
             await api.patch(`/usuarios/${usuarioId}`, {
                 saldo: usuario.saldo - Number(valor)
             });
 
-            // Busca o evento para definir o palpite
-            const eventoResposta = await api.get(
-                `/eventos/${eventoId}`
-            );
-
+            const eventoResposta = await api.get(`/eventos/${eventoId}`);
             const evento = eventoResposta.data;
 
             const novaAposta = {
@@ -71,7 +60,6 @@ function Apostar() {
 
             setEventoId("");
             setValor("");
-
         } catch (erro) {
             console.error(erro);
             alert("Erro ao realizar aposta.");
@@ -79,44 +67,39 @@ function Apostar() {
     };
 
     return (
-    <div className="page-container centralizado">
-            <h1>Apostar</h1>
+        <div className="page-container centralizado">
+            <h1>Realizar Aposta</h1>
 
-            <select
-                value={eventoId}
-                onChange={(e) => setEventoId(e.target.value)}
-            >
-                <option value="">
-                    Selecione um evento
-                </option>
+            <div className="aposta-card">
+                <p className="aposta-texto">
+                    Escolha um evento disponível e informe o valor da sua aposta fictícia.
+                </p>
 
-                {eventos.map((evento) => (
-                    <option
-                        key={evento.id}
-                        value={evento.id}
-                    >
-                        {evento.timeA} vs {evento.timeB}
-                    </option>
-                ))}
-            </select>
+                <select
+                    value={eventoId}
+                    onChange={(e) => setEventoId(e.target.value)}
+                >
+                    <option value="">Selecione um evento</option>
 
-            <br />
-            <br />
+                    {eventos.map((evento) => (
+                        <option key={evento.id} value={evento.id}>
+                            {evento.timeA} vs {evento.timeB}
+                        </option>
+                    ))}
+                </select>
 
-            <input
-                type="number"
-                min="1"
-                placeholder="Valor da aposta"
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
-            />
+                <input
+                    type="number"
+                    min="1"
+                    placeholder="Valor da aposta"
+                    value={valor}
+                    onChange={(e) => setValor(e.target.value)}
+                />
 
-            <br />
-            <br />
-
-            <button onClick={fazerAposta}>
-                Apostar
-            </button>
+                <button onClick={fazerAposta}>
+                    Confirmar Aposta
+                </button>
+            </div>
         </div>
     );
 }

@@ -235,3 +235,21 @@ p {
         grid-template-columns: 1fr;
     }
 }
+.aposta-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 30px;
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.aposta-texto {
+    color: #cbd5e1;
+    text-align: center;
+    margin-top: 0;
+}

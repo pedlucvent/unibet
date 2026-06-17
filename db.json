@@ -14,7 +14,7 @@
       "email": "user@bet.com",
       "senha": "123",
       "perfil": "usuario",
-      "saldo": 1100
+      "saldo": 1000
     }
   ],
   "eventos": [
@@ -46,6 +46,15 @@
       "palpite": "Flamengo",
       "retorno": 200,
       "id": "u4PnVgDTMoM"
+    },
+    {
+      "usuarioId": 2,
+      "eventoId": 2,
+      "valor": 100,
+      "status": "pendente",
+      "palpite": "Brasil",
+      "retorno": 0,
+      "id": "nlsqvP2OxAo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
