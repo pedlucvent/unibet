@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 function Apostar() {
+    const { usuario } = useAuth();
+
     const [eventos, setEventos] = useState([]);
     const [eventoId, setEventoId] = useState("");
     const [palpite, setPalpite] = useState("");
@@ -22,7 +25,12 @@ function Apostar() {
     );
 
     const fazerAposta = async () => {
-        const usuarioId = 2;
+        if (!usuario) {
+            alert("Usuário não está logado.");
+            return;
+        }
+
+        const usuarioId = usuario.id;
 
         if (!eventoId) {
             alert("Selecione um evento.");
@@ -40,19 +48,16 @@ function Apostar() {
         }
 
         try {
-            const usuarioResposta = await api.get(
-                `/usuarios/${usuarioId}`
-            );
+            const usuarioResposta = await api.get(`/usuarios/${usuarioId}`);
+            const usuarioAtualizado = usuarioResposta.data;
 
-            const usuario = usuarioResposta.data;
-
-            if (usuario.saldo < Number(valor)) {
+            if (usuarioAtualizado.saldo < Number(valor)) {
                 alert("Saldo insuficiente!");
                 return;
             }
 
             await api.patch(`/usuarios/${usuarioId}`, {
-                saldo: usuario.saldo - Number(valor)
+                saldo: usuarioAtualizado.saldo - Number(valor)
             });
 
             const novaAposta = {
@@ -71,7 +76,6 @@ function Apostar() {
             setEventoId("");
             setPalpite("");
             setValor("");
-
         } catch (erro) {
             console.error(erro);
             alert("Erro ao realizar aposta.");
@@ -95,15 +99,10 @@ function Apostar() {
                         setPalpite("");
                     }}
                 >
-                    <option value="">
-                        Selecione um evento
-                    </option>
+                    <option value="">Selecione um evento</option>
 
                     {eventos.map((evento) => (
-                        <option
-                            key={evento.id}
-                            value={evento.id}
-                        >
+                        <option key={evento.id} value={evento.id}>
                             {evento.timeA} vs {evento.timeB}
                         </option>
                     ))}
@@ -114,9 +113,7 @@ function Apostar() {
                         value={palpite}
                         onChange={(e) => setPalpite(e.target.value)}
                     >
-                        <option value="">
-                            Escolha o time
-                        </option>
+                        <option value="">Escolha o time</option>
 
                         <option value={eventoSelecionado.timeA}>
                             {eventoSelecionado.timeA}

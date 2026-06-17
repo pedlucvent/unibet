@@ -253,3 +253,128 @@ p {
     text-align: center;
     margin-top: 0;
 }
+.ranking-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ranking-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.ranking-card:hover {
+    transform: translateY(-2px);
+}
+
+.ranking-card h3 {
+    margin: 0;
+}
+
+.ranking-card strong {
+    font-size: 22px;
+}
+
+.ouro {
+    border-left: 6px solid gold;
+}
+
+.prata {
+    border-left: 6px solid silver;
+}
+
+.bronze {
+    border-left: 6px solid #cd7f32;
+}
+.admin-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.admin-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+.admin-status-box {
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 16px 22px;
+    min-width: 170px;
+    text-align: center;
+}
+
+.admin-status-box span {
+    display: block;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+
+.admin-status-box strong {
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.admin-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-alerta {
+    background: #f59e0b;
+}
+
+.btn-alerta:hover {
+    background: #d97706;
+}
+
+@media (max-width: 768px) {
+    .admin-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-status-box {
+        width: 100%;
+    }
+}
+.login-link {
+    margin-top: 18px;
+    text-align: center;
+    color: #cbd5e1;
+}
+
+.login-link a {
+    color: #38bdf8;
+}
+
+.login-link a:hover {
+    color: #22c55e;
+}
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #f8fafc;
+}
+
+form input {
+    width: 100%;
+    margin-bottom: 18px;
+}

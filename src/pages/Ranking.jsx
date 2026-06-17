@@ -6,20 +6,44 @@ function Ranking() {
 
     useEffect(() => {
         api.get("/usuarios").then((res) => {
-            const ordenado = res.data.sort((a, b) => b.saldo - a.saldo);
+            const ordenado = [...res.data].sort(
+                (a, b) => b.saldo - a.saldo
+            );
+
             setUsuarios(ordenado);
         });
     }, []);
 
     return (
-        <div>
-            <h1>Ranking de Jogadores</h1>
+        <div className="page-container">
+            <h1>🏆 Ranking de Jogadores</h1>
 
-            {usuarios.map((u, index) => (
-                <div className="card" key={u.id}>
-                    #{index + 1} - {u.nome} - Saldo: R$ {u.saldo}
-                </div>
-            ))}
+            <div className="ranking-container">
+                {usuarios.map((usuario, index) => (
+                    <div
+                        className={`ranking-card ${
+                            index === 0
+                                ? "ouro"
+                                : index === 1
+                                ? "prata"
+                                : "bronze"
+                        }`}
+                        key={usuario.id}
+                    >
+                        <div>
+                            <h3>
+                                #{index + 1} - {usuario.nome}
+                            </h3>
+                        </div>
+
+                        <div>
+                            <strong>
+                                R$ {usuario.saldo}
+                            </strong>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

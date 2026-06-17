@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 function UsuarioDashboard() {
-    const [usuario, setUsuario] = useState(null);
+    const { usuario } = useAuth();
+
+    const [dadosUsuario, setDadosUsuario] = useState(null);
     const [apostas, setApostas] = useState([]);
 
     const carregarDados = async () => {
-        const usuarioId = 2;
+        if (!usuario) {
+            return;
+        }
+
+        const usuarioId = usuario.id;
 
         const usuarioResposta = await api.get(`/usuarios/${usuarioId}`);
         const apostasResposta = await api.get(`/apostas?usuarioId=${usuarioId}`);
 
-        setUsuario(usuarioResposta.data);
+        setDadosUsuario(usuarioResposta.data);
         setApostas(apostasResposta.data);
     };
 
     useEffect(() => {
         carregarDados();
-    }, []);
+    }, [usuario]);
 
-    if (!usuario) {
+    if (!usuario || !dadosUsuario) {
         return <p>Carregando...</p>;
     }
 
@@ -33,13 +40,13 @@ function UsuarioDashboard() {
 
             <div className="dashboard-hero">
                 <div>
-                    <h2>Bem-vindo, {usuario.nome}</h2>
+                    <h2>Bem-vindo, {dadosUsuario.nome}</h2>
                     <p>Acompanhe seu saldo, apostas e desempenho no UniBet.</p>
                 </div>
 
                 <div className="saldo-box">
                     <span>Saldo atual</span>
-                    <strong>R$ {usuario.saldo}</strong>
+                    <strong>R$ {dadosUsuario.saldo}</strong>
                 </div>
             </div>
 

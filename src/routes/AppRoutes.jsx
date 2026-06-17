@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 import UsuarioDashboard from "../pages/UsuarioDashboard";
 import EventosAdmin from "../pages/EventosAdmin";
 import Eventos from "../pages/Eventos";
@@ -15,6 +16,7 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
             <Route
                 path="/"

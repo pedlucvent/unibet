@@ -10,11 +10,19 @@
     },
     {
       "id": "2",
-      "nome": "João Jogador",
+      "nome": "João",
       "email": "user@bet.com",
       "senha": "123",
       "perfil": "usuario",
       "saldo": 1000
+    },
+    {
+      "nome": "Pedro",
+      "email": "pedro@bet.com",
+      "senha": "123",
+      "perfil": "usuario",
+      "saldo": 1000,
+      "id": "12d_vjMbwgM"
     }
   ],
   "eventos": [
@@ -24,8 +32,8 @@
       "timeB": "Vasco",
       "esporte": "Futebol",
       "data": "2026-06-20",
-      "status": "finalizado",
-      "resultado": "Flamengo"
+      "status": "aberto",
+      "resultado": ""
     },
     {
       "id": "2",
@@ -33,38 +41,10 @@
       "timeB": "Argentina",
       "esporte": "Futebol",
       "data": "2026-06-25",
-      "status": "finalizado",
-      "resultado": "Brasil"
+      "status": "aberto",
+      "resultado": ""
     }
   ],
-  "apostas": [
-    {
-      "usuarioId": 2,
-      "eventoId": 1,
-      "valor": 100,
-      "status": "ganhou",
-      "palpite": "Flamengo",
-      "retorno": 200,
-      "id": "u4PnVgDTMoM"
-    },
-    {
-      "usuarioId": 2,
-      "eventoId": 2,
-      "valor": 100,
-      "status": "ganhou",
-      "palpite": "Brasil",
-      "retorno": 200,
-      "id": "nlsqvP2OxAo"
-    },
-    {
-      "usuarioId": 2,
-      "eventoId": 2,
-      "valor": 200,
-      "status": "perdeu",
-      "palpite": "Argentina",
-      "retorno": 0,
-      "id": "O_rDDyNhNRo"
-    }
-  ],
+  "apostas": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

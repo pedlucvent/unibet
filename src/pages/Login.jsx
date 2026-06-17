@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
@@ -31,37 +31,34 @@ function Login() {
             <h1>UniBet</h1>
 
             <form onSubmit={handleLogin}>
-                <div>
-                    <label>Email:</label>
-                    <br />
+                <label>Email</label>
 
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
 
-                <br />
+                <label>Senha</label>
 
-                <div>
-                    <label>Senha:</label>
-                    <br />
-
-                    <input
-                        type="password"
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <br />
+                <input
+                    type="password"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
+                />
 
                 <button type="submit">
                     Entrar
                 </button>
+
+                <p className="login-link">
+                    Ainda não tem conta?{" "}
+                    <Link to="/register">
+                        Registrar
+                    </Link>
+                </p>
             </form>
         </div>
     );
