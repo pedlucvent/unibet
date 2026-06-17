@@ -1,0 +1,41 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Administrador",
+      "email": "admin@bet.com",
+      "senha": "123",
+      "perfil": "admin",
+      "saldo": 0
+    },
+    {
+      "id": 2,
+      "nome": "João Jogador",
+      "email": "user@bet.com",
+      "senha": "123",
+      "perfil": "usuario",
+      "saldo": 1000
+    }
+  ],
+  "eventos": [
+    {
+      "id": 1,
+      "timeA": "Flamengo",
+      "timeB": "Vasco",
+      "esporte": "Futebol",
+      "data": "2026-06-20",
+      "status": "aberto",
+      "resultado": ""
+    },
+    {
+      "id": 2,
+      "timeA": "Brasil",
+      "timeB": "Argentina",
+      "esporte": "Futebol",
+      "data": "2026-06-25",
+      "status": "aberto",
+      "resultado": ""
+    }
+  ],
+  "apostas": []
+}
